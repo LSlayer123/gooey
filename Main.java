@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-class gui {
+public class gui implements ActionListener {
     public static void main(String args[]) {
 
         //Creating the Frame
@@ -25,7 +25,8 @@ class gui {
         JLabel label = new JLabel("Enter Text");
         JTextField tf = new JTextField(10); // accepts upto 10 characters
         JButton send = new JButton("Send");
-        JButton reset = new JButton("Exit");
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(this);
         panel.add(label); // Components Added using Flow Layout
         panel.add(label); // Components Added using Flow Layout
         panel.add(tf);
@@ -40,10 +41,10 @@ class gui {
         frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, ta);
         frame.setVisible(true);
-    }
-    public void windowClosing(WindowEvent e) {
-        dispose();
-        System.exit(0);
-}
 
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    }
+    
 }
