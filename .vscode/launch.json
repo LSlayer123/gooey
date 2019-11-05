@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - GuiTesting",
+            "request": "launch",
+            "mainClass": "GuiTesting",
+            "projectName": "gooey_c2b63e85"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - gui",
             "request": "launch",
             "mainClass": "gui"
