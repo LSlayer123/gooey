@@ -16,13 +16,7 @@ class GuiTesting{
     }
     static class Action implements ActionListener{
         public void actionPerformed (ActionEvent e){
-            JFrame frame2 = new JFrame("clicked");
-            frame2.setVisible(true);
-            frame2.setSize(300,300);
-            JPanel panel2 = new JPanel();
-            JLabel label = new JLabel("You clicked me!");
-            frame2.add(panel2);
-            panel2.add(label);
+            System.exit(0);
         }
     }
 }
