@@ -11,8 +11,8 @@ class GuiTesting{
     JButton C;
     JButton D;
     JButton M;
-    JButton additioButton;
-    JButton subtractioButton;
+    JButton additionButton;
+    JButton subtractionButton;
     JButton calculateButton;
     JButton clearButton;
     JLabel title;
@@ -226,6 +226,7 @@ class GuiTesting{
         input.addActionListener(inputHandler);
         
     }
+    
     //ActionListener Class
     static class Action implements ActionListener{
         public void actionPerformed (ActionEvent e){
