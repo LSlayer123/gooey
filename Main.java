@@ -3,6 +3,21 @@ import java.awt.*;
 import java.awt.event.*;
 
 class GuiTesting{
+    
+    JButton I;
+    JButton V;
+    JButton X;
+    JButton L;
+    JButton C;
+    JButton D;
+    JButton M;
+    JButton additioButton;
+    JButton subtractioButton;
+    JButton calculateButton;
+    JButton clearButton;
+    JLabel title;
+    JTextField input;
+
     //Function for converting Roman Number into Arabic Number
     public double romanToArab(String romanNumber){
         
@@ -114,13 +129,6 @@ class GuiTesting{
 
     }
 
-    //ActionListener Class
-    static class Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            System.exit(0);
-        }
-    }
-    
     //Main class
     public static void main (String[] args){
         
@@ -130,27 +138,99 @@ class GuiTesting{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600,400);
 
-        //Creating the panel for the frame
-        JPanel panel = new JPanel(new GridBagLayout());
-        frame.getContentPane().add(panel, BorderLayout.NORTH);
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10,10,10,10);
-
-        //instantiating buttons, attaching actionlisteners and adding them to to the panel
+        //Instantiating all frame elements
         JButton additionButton = new JButton("+");
         JButton subtractionButton = new JButton("-");
         JButton calculateButton = new JButton("Calculate");
         JButton clearButton = new JButton("Clear");
+        JButton I = new JButton("I");
+        I.setPreferredSize(new Dimension(50, 50));
+        JButton V = new JButton("V");
+        V.setPreferredSize(new Dimension(50, 50));
+        JButton X = new JButton("X");
+        X.setPreferredSize(new Dimension(50, 50));
+        JButton L = new JButton("L");
+        L.setPreferredSize(new Dimension(50, 50));
+        JButton C = new JButton("C");
+        C.setPreferredSize(new Dimension(50, 50));
+        JButton D = new JButton("D");
+        D.setPreferredSize(new Dimension(50, 50));
+        JButton M = new JButton("M");
+        M.setPreferredSize(new Dimension(50, 50));
+        JLabel title = new JLabel("Roman Numeral Calculator");
+        title.setFont(new Font("Comic Sans MS", Font.PLAIN, 24));
+        JTextField input = new JTextField(10);
+        input.setEditable(false);
 
-        panel.add(additionButton);
-        panel.add(subtractionButton);
-        panel.add(calculateButton);
-        panel.add(clearButton);
+        //Creating the panel for the frame and setting basic constraints
+        JPanel panel = new JPanel(new GridBagLayout());
+        frame.add(panel, BorderLayout.NORTH);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.fill = GridBagConstraints.NONE;
+        
+        //Adding all buttons and fields to the panel using GridBagLayout to organise them all
+        constraints.weightx = 0.9;
+        constraints.weighty = 0.9;
 
-        additionButton.addActionListener(new Action());
-        subtractionButton.addActionListener(new Action());
-        calculateButton.addActionListener(new Action());
-        clearButton.addActionListener(new Action());
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        panel.add(title, constraints);
 
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.LINE_START;
+        panel.add(input, constraints);
+        
+        constraints.anchor = GridBagConstraints.LINE_START;
+    
+        constraints.weightx = 0.5;
+        constraints.weighty = 0.5;
+        constraints.gridwidth = 0;
+        constraints.fill = GridBagConstraints.NONE;
+
+        constraints.gridx = 1;
+        constraints.gridy = 4;
+        panel.add(I, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 4;
+        panel.add(V, constraints);
+
+        constraints.gridx = 3;
+        constraints.gridy = 4;
+        panel.add(X, constraints);
+
+        constraints.gridx = 4;
+        constraints.gridy = 4;
+        panel.add(L, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        panel.add(C, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 5;
+        panel.add(D, constraints);
+
+        constraints.gridx = 3;
+        constraints.gridy = 5;
+        panel.add(M, constraints);
+
+        Action inputHandler = new Action();
+        additionButton.addActionListener(inputHandler);
+        subtractionButton.addActionListener(inputHandler);
+        calculateButton.addActionListener(inputHandler);
+        clearButton.addActionListener(inputHandler);
+        input.addActionListener(inputHandler);
+        
     }
+    //ActionListener Class
+    static class Action implements ActionListener{
+        public void actionPerformed (ActionEvent e){
+            System.exit(0);
+        }
+    }
+    
 }
