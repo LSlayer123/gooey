@@ -18,11 +18,7 @@ class GuiTesting{
     private JButton clearButton;
     private JButton period;
     private JLabel title;
-    private JLabel arabicLabel;
-    private JLabel romanLabel;
     private JTextField input;
-    private JTextField outputRoman;
-    private JTextField outputArabic;
 
     //Function for converting Roman Number into Arabic Number
     public double romanToArab(String romanNumber){
@@ -75,13 +71,12 @@ class GuiTesting{
         String total = "";
         double[] numbers = {1000,500,100,50,10,5,1};
         String letters = "MDCLXVI";
-        
+
         //Special case for if the number has a decimal
-        if (Math.round(arabicNumber) != arabicNumber){
-            double integer = arabicNumber;
-            double decimal = (int)Math.round((arabicNumber - integer) * 100);
-            int normalInteger = (int)Math.round(integer);
-            String romanInt = arabToRoman(normalInteger);
+        if (Double.compare(Math.round(arabicNumber), arabicNumber) < 0){
+            double integer = (int)Math.round(arabicNumber);
+            double decimal = Math.ceil((arabicNumber - integer) * 100);
+            String romanInt = arabToRoman(integer);
             String romanDec = arabToRoman(decimal);
 
             return romanInt + "." + romanDec;
@@ -102,15 +97,12 @@ class GuiTesting{
     
     //Function for validating the inputted numbers
     public boolean validation(String firstPart, char Procedure, String lastPart, JFrame window){
-        boolean suitable = false;
-        JOptionPane.showMessageDialog(frame, romanToArab(firstPart), "whatttt", JOptionPane.ERROR_MESSAGE);
+        boolean suitable = false;;
         String predictedOutput1 = arabToRoman(romanToArab(firstPart));
-        JOptionPane.showMessageDialog(frame, predictedOutput1, "I hate my life", JOptionPane.ERROR_MESSAGE);
-        JOptionPane.showMessageDialog(frame, firstPart, "sometimes u just gotta do it yall", JOptionPane.ERROR_MESSAGE);
         String predictedOutput2 = arabToRoman(romanToArab(lastPart));
 
         //Validating First number
-        if (predictedOutput1 != firstPart){
+        if (!firstPart.equals(predictedOutput1)){
             JOptionPane.showMessageDialog(window, "Your first Roman Numeral was not entered properly", "Error!", JOptionPane.ERROR_MESSAGE);
             if (predictedOutput1.length() != firstPart.length()){
                 JOptionPane.showMessageDialog(window, "You didn't follow the additive rule, the Roman numeral should've been written as " + predictedOutput1, "Error!", JOptionPane.ERROR_MESSAGE);
@@ -120,7 +112,7 @@ class GuiTesting{
             }
         }
         //Validating Second Number
-        else if (predictedOutput2 != lastPart){
+        else if (!lastPart.equals(predictedOutput2)){
             JOptionPane.showMessageDialog(window, "Your second Roman Numeral was not entered properly", "Error!", JOptionPane.ERROR_MESSAGE);
             if (predictedOutput2.length() != lastPart.length()){
                 JOptionPane.showMessageDialog(window, "You didn't follow the additive rule, the Roman numeral should've been written as " + predictedOutput2, "Error!", JOptionPane.ERROR_MESSAGE);
@@ -238,6 +230,9 @@ class GuiTesting{
                     if (operation == '+'){
                         JOptionPane.showMessageDialog(frame, "Arabic Result: " + (romanToArab(number1) + romanToArab(number2)) + "\n" + "Roman Result: " + arabToRoman(romanToArab(number1) + romanToArab(number2)), "Result", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "Arabic Result: " + (romanToArab(number1) - romanToArab(number2)) + "\n" + "Roman Result: " + arabToRoman(romanToArab(number1) - romanToArab(number2)), "Result", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 else{
                     JOptionPane.showMessageDialog(frame, "Please try again", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -284,16 +279,8 @@ class GuiTesting{
         Test.period.setPreferredSize(new Dimension(50,40));
         Test.title = new JLabel("Roman Numeral Calculator");
         Test.title.setFont(new Font("Comic Sans MS", Font.PLAIN, 24));
-        Test.romanLabel = new JLabel("Roman Total");
-        Test.romanLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-        Test.arabicLabel = new JLabel("Arabic Total");
-        Test.arabicLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         Test.input = new JTextField(10);
-        Test.input.setEditable(false);
-        Test.outputRoman = new JTextField(10);
-        Test.outputRoman.setEditable(false);
-        Test.outputArabic = new JTextField(10);
-        Test.outputArabic.setEditable(false);
+        Test.input.setEditable(false); 
 
         //Creating the panel for the frame and setting basic constraints
         JPanel panel = new JPanel(new GridBagLayout());
