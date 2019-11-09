@@ -5,7 +5,6 @@ import java.awt.event.*;
 class GuiTesting{
 
     private JFrame frame;
-    private JFrame window;
     private JButton I;
     private JButton V;
     private JButton X;
@@ -19,11 +18,7 @@ class GuiTesting{
     private JButton clearButton;
     private JButton period;
     private JLabel title;
-    private JLabel arabicLabel;
-    private JLabel romanLabel;
     private JTextField input;
-    private JTextField outputRoman;
-    private JTextField outputArabic;
 
     //Function for converting Roman Number into Arabic Number
     public double romanToArab(String romanNumber){
@@ -33,7 +28,7 @@ class GuiTesting{
         char currentCharacter;
         
         //Substituting each letter in the Roman numeral to its respective value and adding it to a running total
-        for (int i=1; i<=romanNumber.length(); i++){
+        for (int i=0; i<romanNumber.length(); i++){
             currentCharacter = romanNumber.charAt(i);
             if (currentCharacter == 'I'){
                 total = total + 1;
@@ -60,8 +55,8 @@ class GuiTesting{
                 tempTotal = total;
                 total = 0;
             }
+            
         }
-        
         //Special case if the number is a decimal
         if (tempTotal > 0){
             total = tempTotal + (total / 100);
@@ -76,11 +71,11 @@ class GuiTesting{
         String total = "";
         double[] numbers = {1000,500,100,50,10,5,1};
         String letters = "MDCLXVI";
-        
+
         //Special case for if the number has a decimal
-        if (String.valueOf(arabicNumber).contains(".")){
-            double integer = arabicNumber;
-            double decimal = Math.round((arabicNumber - integer) * 100);
+        if (Double.compare(Math.round(arabicNumber), arabicNumber) < 0){
+            double integer = (int)Math.round(arabicNumber);
+            double decimal = Math.ceil((arabicNumber - integer) * 100);
             String romanInt = arabToRoman(integer);
             String romanDec = arabToRoman(decimal);
 
@@ -101,15 +96,13 @@ class GuiTesting{
     }
     
     //Function for validating the inputted numbers
-    public boolean validation(String firstPart, String lastPart, JFrame window){
-        boolean suitable = false;
-        String predictedOutput1;
-        String predictedOutput2;
+    public boolean validation(String firstPart, char Procedure, String lastPart, JFrame window){
+        boolean suitable = false;;
+        String predictedOutput1 = arabToRoman(romanToArab(firstPart));
+        String predictedOutput2 = arabToRoman(romanToArab(lastPart));
 
         //Validating First number
-        predictedOutput1 = arabToRoman(romanToArab(firstPart));
-        predictedOutput2 = arabToRoman(romanToArab(lastPart));
-        if (predictedOutput1 != firstPart){
+        if (!firstPart.equals(predictedOutput1)){
             JOptionPane.showMessageDialog(window, "Your first Roman Numeral was not entered properly", "Error!", JOptionPane.ERROR_MESSAGE);
             if (predictedOutput1.length() != firstPart.length()){
                 JOptionPane.showMessageDialog(window, "You didn't follow the additive rule, the Roman numeral should've been written as " + predictedOutput1, "Error!", JOptionPane.ERROR_MESSAGE);
@@ -119,7 +112,7 @@ class GuiTesting{
             }
         }
         //Validating Second Number
-        else if (predictedOutput2 != lastPart){
+        else if (!lastPart.equals(predictedOutput2)){
             JOptionPane.showMessageDialog(window, "Your second Roman Numeral was not entered properly", "Error!", JOptionPane.ERROR_MESSAGE);
             if (predictedOutput2.length() != lastPart.length()){
                 JOptionPane.showMessageDialog(window, "You didn't follow the additive rule, the Roman numeral should've been written as " + predictedOutput2, "Error!", JOptionPane.ERROR_MESSAGE);
@@ -128,6 +121,15 @@ class GuiTesting{
                 JOptionPane.showMessageDialog(window, "Your Roman Numeral was not written in descending order per standard practice. It shouldve been written as " + predictedOutput2, "Error!", JOptionPane.ERROR_MESSAGE);
             }
         }
+        //Validating negative answers
+        else if (Procedure == '-' && ((romanToArab(firstPart)) < romanToArab(lastPart))){
+            JOptionPane.showMessageDialog(window, "That calculation is invalid, the result cannot be a negative number.", "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        //Validating zero answers
+        else if (Procedure == '-' && firstPart == lastPart){
+            JOptionPane.showMessageDialog(window, "That calculation is invalid, the result is 0 which can't be represented as a Roman numeral", "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+
         else{
             suitable = true;
         }
@@ -136,14 +138,105 @@ class GuiTesting{
 
     }
 
+    //Function for splitting up the input form the user into the two numbers and the operation that needs to be processed
+    public String[] Splitting(String initialProblem){
+        
+        int length = 0;
+        char currentCharacter;
+
+        for (int i = 0; i<initialProblem.length(); i++){
+            currentCharacter = initialProblem.charAt(i);
+            if (currentCharacter == '+' || currentCharacter == '-'){
+                length = i;
+            }
+        }
+
+        String firstNumber = initialProblem.substring(0, length);
+        char Operation = initialProblem.charAt(length);
+        String lastNumber = initialProblem.substring(length + 1);
+        
+        String[] finalValues = {firstNumber, String.valueOf(Operation), lastNumber};
+        return finalValues;
+    }
+    
     //ActionListener Class
-    class Action implements ActionListener{
+    public class Action implements ActionListener{
         public  void actionPerformed (ActionEvent e){
             if (e.getSource() == I){
-                JOptionPane.showMessageDialog(window, "HOORAY", "title", JOptionPane.ERROR_MESSAGE);
+                String temp = input.getText();
+                temp += "I";
+                input.setText(temp);
             }
-            else{
-                System.exit(0);
+            else if (e.getSource() == V){
+                String temp = input.getText();
+                temp += "V";
+                input.setText(temp);
+            }
+            else if (e.getSource() == X){
+                String temp = input.getText();
+                temp += "X";
+                input.setText(temp);
+            }
+            else if (e.getSource() == L){
+                String temp = input.getText();
+                temp += "L";
+                input.setText(temp);
+            }
+            else if (e.getSource() == C){
+                String temp = input.getText();
+                temp += "C";
+                input.setText(temp);
+            }
+            else if (e.getSource() == D){
+                String temp = input.getText();
+                temp += "D";
+                input.setText(temp);
+            }
+            else if (e.getSource() == M){
+                String temp = input.getText();
+                temp += "M";
+                input.setText(temp);
+            }
+            else if (e.getSource() == additionButton){
+                String temp = input.getText();
+                temp += "+";
+                input.setText(temp);
+            }
+            else if (e.getSource() == subtractionButton){
+                String temp = input.getText();
+                temp += "-";
+                input.setText(temp);
+            }
+            else if (e.getSource() == period){
+                String temp = input.getText();
+                temp += ".";
+                input.setText(temp);
+            }
+            else if (e.getSource() == clearButton){
+                String temp = "";
+                input.setText(temp);
+            }
+            else if (e.getSource() == calculateButton){
+                String[] values = Splitting(input.getText());
+                String number1 = values[0];
+                String operator = values[1];
+                char operation = operator.charAt(0);
+                String number2 = values[2];
+
+                boolean valid = validation(number1, operation, number2, frame);
+
+                if (valid){
+                    JOptionPane.showMessageDialog(frame, "Your calculation in Arabic: " + romanToArab(number1) + operation + romanToArab(number2), "Result", JOptionPane.INFORMATION_MESSAGE);
+                    if (operation == '+'){
+                        JOptionPane.showMessageDialog(frame, "Arabic Result: " + (romanToArab(number1) + romanToArab(number2)) + "\n" + "Roman Result: " + arabToRoman(romanToArab(number1) + romanToArab(number2)), "Result", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "Arabic Result: " + (romanToArab(number1) - romanToArab(number2)) + "\n" + "Roman Result: " + arabToRoman(romanToArab(number1) - romanToArab(number2)), "Result", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(frame, "Please try again", "Error!", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
@@ -186,16 +279,8 @@ class GuiTesting{
         Test.period.setPreferredSize(new Dimension(50,40));
         Test.title = new JLabel("Roman Numeral Calculator");
         Test.title.setFont(new Font("Comic Sans MS", Font.PLAIN, 24));
-        Test.romanLabel = new JLabel("Roman Total");
-        Test.romanLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-        Test.arabicLabel = new JLabel("Arabic Total");
-        Test.arabicLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         Test.input = new JTextField(10);
-        Test.input.setEditable(false);
-        Test.outputRoman = new JTextField(10);
-        Test.outputRoman.setEditable(false);
-        Test.outputArabic = new JTextField(10);
-        Test.outputArabic.setEditable(false);
+        Test.input.setEditable(false); 
 
         //Creating the panel for the frame and setting basic constraints
         JPanel panel = new JPanel(new GridBagLayout());
