@@ -29,33 +29,36 @@ class GuiTesting{
         
         //Substituting each letter in the Roman numeral to its respective value and adding it to a running total
         for (int i=0; i<romanNumber.length(); i++){
-            currentCharacter = romanNumber.charAt(i);
-            if (currentCharacter == 'I'){
-                total = total + 1;
-            }
-            else if (currentCharacter == 'V'){
-                total = total + 5;
-            }
-            else if (currentCharacter == 'X'){
-                total = total + 10;
-            }
-            else if (currentCharacter == 'L'){
-                total = total + 50;
-            }
-            else if (currentCharacter == 'C'){
-                total = total + 100;
-            }
-            else if (currentCharacter == 'D'){
-                total = total + 500;
-            }
-            else if (currentCharacter == 'M'){
-                total = total + 1000;
-            }
-            else if (currentCharacter == '.'){
-                tempTotal = total;
-                total = 0;
-            }
             
+            currentCharacter = romanNumber.charAt(i);
+            
+            switch(currentCharacter){
+                case 'I':
+                    total = total + 1;
+                    break;
+                case 'V':
+                    total = total + 5;
+                    break;
+                case 'X':
+                    total = total + 10;
+                    break;
+                case 'L':
+                    total = total + 50;
+                    break;
+                case 'C':
+                    total = total + 100;
+                    break;
+                case 'D':
+                    total = total + 500;
+                    break;
+                case 'M':
+                    total = total + 1000;
+                    break;
+                case '.':
+                    tempTotal = total;
+                    total = 0;
+                    break;
+            }
         }
         //Special case if the number is a decimal
         if (tempTotal > 0){
@@ -75,7 +78,7 @@ class GuiTesting{
         //Special case for if the number has a decimal
         if (Double.compare(Math.round(arabicNumber), arabicNumber) < 0){
             double integer = (int)Math.round(arabicNumber);
-            double decimal = Math.ceil((arabicNumber - integer) * 100);
+            double decimal = Math.round((arabicNumber - integer) * 100);
             String romanInt = arabToRoman(integer);
             String romanDec = arabToRoman(decimal);
 
