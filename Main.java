@@ -233,6 +233,8 @@ class GuiTesting{
                     else{
                         JOptionPane.showMessageDialog(frame, "Arabic Result: " + (romanToArab(number1) - romanToArab(number2)) + "\n" + "Roman Result: " + arabToRoman(romanToArab(number1) - romanToArab(number2)), "Result", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    String temp = "";
+                    input.setText(temp);
                 }
                 else{
                     JOptionPane.showMessageDialog(frame, "Please try again", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -358,6 +360,7 @@ class GuiTesting{
         constraints.gridy = 9;
         panel.add(Test.clearButton, constraints);
 
+        //Adding Action listener objects to all buttons to add interactivity
         Action inputHandler = (Test.new Action());
         Test.I.addActionListener(inputHandler);
         Test.V.addActionListener(inputHandler);
