@@ -32,7 +32,7 @@ class GuiTesting{
         char currentCharacter;
         
         //Substituting each letter in the Roman numeral to its respective value and adding it to a running total
-        for (int i=1; i<romanNumber.length(); i++){
+        for (int i=0; i<romanNumber.length(); i++){
             currentCharacter = romanNumber.charAt(i);
             if (currentCharacter == 'I'){
                 total = total + 1;
@@ -59,8 +59,8 @@ class GuiTesting{
                 tempTotal = total;
                 total = 0;
             }
+            
         }
-        
         //Special case if the number is a decimal
         if (tempTotal > 0){
             total = tempTotal + (total / 100);
@@ -77,11 +77,9 @@ class GuiTesting{
         String letters = "MDCLXVI";
         
         //Special case for if the number has a decimal
-        if (String.valueOf(arabicNumber).contains(".")){
+        if (Math.round(arabicNumber) != arabicNumber){
             double integer = arabicNumber;
             double decimal = (int)Math.round((arabicNumber - integer) * 100);
-            JOptionPane.showMessageDialog(frame, integer, "title", JOptionPane.ERROR_MESSAGE);
-            JOptionPane.showMessageDialog(frame, decimal, "title", JOptionPane.ERROR_MESSAGE);
             int normalInteger = (int)Math.round(integer);
             String romanInt = arabToRoman(normalInteger);
             String romanDec = arabToRoman(decimal);
@@ -105,7 +103,10 @@ class GuiTesting{
     //Function for validating the inputted numbers
     public boolean validation(String firstPart, char Procedure, String lastPart, JFrame window){
         boolean suitable = false;
+        JOptionPane.showMessageDialog(frame, romanToArab(firstPart), "whatttt", JOptionPane.ERROR_MESSAGE);
         String predictedOutput1 = arabToRoman(romanToArab(firstPart));
+        JOptionPane.showMessageDialog(frame, predictedOutput1, "I hate my life", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(frame, firstPart, "sometimes u just gotta do it yall", JOptionPane.ERROR_MESSAGE);
         String predictedOutput2 = arabToRoman(romanToArab(lastPart));
 
         //Validating First number
