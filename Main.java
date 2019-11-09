@@ -3,6 +3,28 @@ import java.awt.*;
 import java.awt.event.*;
 
 class GuiTesting{
+
+    private JFrame frame;
+    private JFrame window;
+    private JButton I;
+    private JButton V;
+    private JButton X;
+    private JButton L;
+    private JButton C;
+    private JButton D;
+    private JButton M;
+    private JButton additionButton;
+    private JButton subtractionButton;
+    private JButton calculateButton;
+    private JButton clearButton;
+    private JButton period;
+    private JLabel title;
+    private JLabel arabicLabel;
+    private JLabel romanLabel;
+    private JTextField input;
+    private JTextField outputRoman;
+    private JTextField outputArabic;
+
     //Function for converting Roman Number into Arabic Number
     public double romanToArab(String romanNumber){
         
@@ -115,42 +137,155 @@ class GuiTesting{
     }
 
     //ActionListener Class
-    static class Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            System.exit(0);
+    class Action implements ActionListener{
+        public  void actionPerformed (ActionEvent e){
+            if (e.getSource() == I){
+                JOptionPane.showMessageDialog(window, "HOORAY", "title", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                System.exit(0);
+            }
         }
     }
-    
+
     //Main class
     public static void main (String[] args){
         
+        GuiTesting Test = new GuiTesting();
+
         //Creating the main frame for the application
-        JFrame frame = new JFrame("Roman Numeral Calc.");
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600,400);
+        Test.frame = new JFrame("Roman Numeral Calc.");
+        Test.frame.setVisible(true);
+        Test.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Test.frame.setSize(600,400);
 
-        //Creating the panel for the frame
+        //Instantiating all frame elements
+        Test.additionButton = new JButton("+");
+        Test.additionButton.setPreferredSize(new Dimension(50, 40));
+        Test.subtractionButton = new JButton("-");
+        Test.subtractionButton.setPreferredSize(new Dimension(50, 40));
+        Test.calculateButton = new JButton("Calculate");
+        Test.calculateButton.setPreferredSize(new Dimension(100, 40));
+        Test.clearButton = new JButton("Clear");
+        Test.clearButton.setPreferredSize(new Dimension(100, 40));
+        Test.I = new JButton("I");
+        Test.I.setPreferredSize(new Dimension(50, 40));
+        Test.V = new JButton("V");
+        Test.V.setPreferredSize(new Dimension(50, 40));
+        Test.X = new JButton("X");
+        Test.X.setPreferredSize(new Dimension(50, 40));
+        Test.L = new JButton("L");
+        Test.L.setPreferredSize(new Dimension(50, 40));
+        Test.C = new JButton("C");
+        Test.C.setPreferredSize(new Dimension(50, 40));
+        Test.D = new JButton("D");
+        Test.D.setPreferredSize(new Dimension(50, 40));
+        Test.M = new JButton("M");
+        Test.M.setPreferredSize(new Dimension(50, 40));
+        Test.period = new JButton(".");
+        Test.period.setPreferredSize(new Dimension(50,40));
+        Test.title = new JLabel("Roman Numeral Calculator");
+        Test.title.setFont(new Font("Comic Sans MS", Font.PLAIN, 24));
+        Test.romanLabel = new JLabel("Roman Total");
+        Test.romanLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        Test.arabicLabel = new JLabel("Arabic Total");
+        Test.arabicLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        Test.input = new JTextField(10);
+        Test.input.setEditable(false);
+        Test.outputRoman = new JTextField(10);
+        Test.outputRoman.setEditable(false);
+        Test.outputArabic = new JTextField(10);
+        Test.outputArabic.setEditable(false);
+
+        //Creating the panel for the frame and setting basic constraints
         JPanel panel = new JPanel(new GridBagLayout());
-        frame.getContentPane().add(panel, BorderLayout.NORTH);
+        Test.frame.add(panel, BorderLayout.NORTH);
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10,10,10,10);
+        constraints.insets = new Insets(1,1,1,1);
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        
+        //Adding all buttons and fields to the panel using GridBagLayout to organise them all
 
-        //instantiating buttons, attaching actionlisteners and adding them to to the panel
-        JButton additionButton = new JButton("+");
-        JButton subtractionButton = new JButton("-");
-        JButton calculateButton = new JButton("Calculate");
-        JButton clearButton = new JButton("Clear");
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        panel.add(Test.title, constraints);
 
-        panel.add(additionButton);
-        panel.add(subtractionButton);
-        panel.add(calculateButton);
-        panel.add(clearButton);
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.CENTER;
+        panel.add(Test.input, constraints);
+        
+        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.ipadx = 50;
 
-        additionButton.addActionListener(new Action());
-        subtractionButton.addActionListener(new Action());
-        calculateButton.addActionListener(new Action());
-        clearButton.addActionListener(new Action());
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.1;
+        constraints.gridwidth = 0;
+        constraints.fill = GridBagConstraints.VERTICAL;
 
+        constraints.gridx = 1;
+        constraints.gridy = 4;
+        panel.add(Test.I, constraints);
+
+        constraints.weightx = 0.;
+        constraints.gridx = 2;
+        constraints.gridy = 4;
+        panel.add(Test.V, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        panel.add(Test.X, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 5;
+        panel.add(Test.L, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 6;
+        panel.add(Test.C, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 6;
+        panel.add(Test.D, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 7;
+        panel.add(Test.M, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 7;
+        panel.add(Test.period, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 8;
+        panel.add(Test.additionButton, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 8;
+        panel.add(Test.subtractionButton, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 9;
+        panel.add(Test.calculateButton, constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 9;
+        panel.add(Test.clearButton, constraints);
+
+        Action inputHandler = (Test.new Action());
+        Test.I.addActionListener(inputHandler);
+        Test.V.addActionListener(inputHandler);
+        Test.X.addActionListener(inputHandler);
+        Test.L.addActionListener(inputHandler);
+        Test.C.addActionListener(inputHandler);
+        Test.D.addActionListener(inputHandler);
+        Test.M.addActionListener(inputHandler);
+        Test.period.addActionListener(inputHandler);
+        Test.additionButton.addActionListener(inputHandler);
+        Test.subtractionButton.addActionListener(inputHandler);
+        Test.calculateButton.addActionListener(inputHandler);
+        Test.clearButton.addActionListener(inputHandler);
+        
     }
 }
