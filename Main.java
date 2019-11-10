@@ -260,8 +260,10 @@ class GuiTesting{
         //Instantiating all frame elements
         Test.additionButton = new JButton("+");
         Test.additionButton.setPreferredSize(new Dimension(50, 40));
+        Test.additionButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         Test.subtractionButton = new JButton("-");
         Test.subtractionButton.setPreferredSize(new Dimension(50, 40));
+        Test.subtractionButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         Test.calculateButton = new JButton("Calculate");
         Test.calculateButton.setPreferredSize(new Dimension(100, 40));
         Test.clearButton = new JButton("Clear");
