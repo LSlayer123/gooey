@@ -129,7 +129,7 @@ class GuiTesting{
             JOptionPane.showMessageDialog(window, "That calculation is invalid, the result cannot be a negative number.", "Error!", JOptionPane.ERROR_MESSAGE);
         }
         //Validating zero answers
-        else if (Procedure == '-' && firstPart == lastPart){
+        else if (Procedure == '-' && firstPart.equals(lastPart)){
             JOptionPane.showMessageDialog(window, "That calculation is invalid, the result is 0 which can't be represented as a Roman numeral", "Error!", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -379,4 +379,5 @@ class GuiTesting{
         Test.clearButton.addActionListener(inputHandler);
         
     }
+
 }
