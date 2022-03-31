@@ -29,33 +29,36 @@ class GuiTesting{
         
         //Substituting each letter in the Roman numeral to its respective value and adding it to a running total
         for (int i=0; i<romanNumber.length(); i++){
-            currentCharacter = romanNumber.charAt(i);
-            if (currentCharacter == 'I'){
-                total = total + 1;
-            }
-            else if (currentCharacter == 'V'){
-                total = total + 5;
-            }
-            else if (currentCharacter == 'X'){
-                total = total + 10;
-            }
-            else if (currentCharacter == 'L'){
-                total = total + 50;
-            }
-            else if (currentCharacter == 'C'){
-                total = total + 100;
-            }
-            else if (currentCharacter == 'D'){
-                total = total + 500;
-            }
-            else if (currentCharacter == 'M'){
-                total = total + 1000;
-            }
-            else if (currentCharacter == '.'){
-                tempTotal = total;
-                total = 0;
-            }
             
+            currentCharacter = romanNumber.charAt(i);
+            
+            switch(currentCharacter){
+                case 'I':
+                    total = total + 1;
+                    break;
+                case 'V':
+                    total = total + 5;
+                    break;
+                case 'X':
+                    total = total + 10;
+                    break;
+                case 'L':
+                    total = total + 50;
+                    break;
+                case 'C':
+                    total = total + 100;
+                    break;
+                case 'D':
+                    total = total + 500;
+                    break;
+                case 'M':
+                    total = total + 1000;
+                    break;
+                case '.':
+                    tempTotal = total;
+                    total = 0;
+                    break;
+            }
         }
         //Special case if the number is a decimal
         if (tempTotal > 0){
@@ -75,7 +78,7 @@ class GuiTesting{
         //Special case for if the number has a decimal
         if (Double.compare(Math.round(arabicNumber), arabicNumber) < 0){
             double integer = (int)Math.round(arabicNumber);
-            double decimal = Math.ceil((arabicNumber - integer) * 100);
+            double decimal = Math.round((arabicNumber - integer) * 100);
             String romanInt = arabToRoman(integer);
             String romanDec = arabToRoman(decimal);
 
@@ -126,7 +129,7 @@ class GuiTesting{
             JOptionPane.showMessageDialog(window, "That calculation is invalid, the result cannot be a negative number.", "Error!", JOptionPane.ERROR_MESSAGE);
         }
         //Validating zero answers
-        else if (Procedure == '-' && firstPart == lastPart){
+        else if (Procedure == '-' && firstPart.equals(lastPart)){
             JOptionPane.showMessageDialog(window, "That calculation is invalid, the result is 0 which can't be represented as a Roman numeral", "Error!", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -233,6 +236,8 @@ class GuiTesting{
                     else{
                         JOptionPane.showMessageDialog(frame, "Arabic Result: " + (romanToArab(number1) - romanToArab(number2)) + "\n" + "Roman Result: " + arabToRoman(romanToArab(number1) - romanToArab(number2)), "Result", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    String temp = "";
+                    input.setText(temp);
                 }
                 else{
                     JOptionPane.showMessageDialog(frame, "Please try again", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -255,8 +260,10 @@ class GuiTesting{
         //Instantiating all frame elements
         Test.additionButton = new JButton("+");
         Test.additionButton.setPreferredSize(new Dimension(50, 40));
+        Test.additionButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         Test.subtractionButton = new JButton("-");
         Test.subtractionButton.setPreferredSize(new Dimension(50, 40));
+        Test.subtractionButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         Test.calculateButton = new JButton("Calculate");
         Test.calculateButton.setPreferredSize(new Dimension(100, 40));
         Test.clearButton = new JButton("Clear");
@@ -358,6 +365,7 @@ class GuiTesting{
         constraints.gridy = 9;
         panel.add(Test.clearButton, constraints);
 
+        //Adding Action listener objects to all buttons to add interactivity
         Action inputHandler = (Test.new Action());
         Test.I.addActionListener(inputHandler);
         Test.V.addActionListener(inputHandler);
@@ -373,4 +381,5 @@ class GuiTesting{
         Test.clearButton.addActionListener(inputHandler);
         
     }
+
 }
